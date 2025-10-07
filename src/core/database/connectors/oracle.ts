@@ -3,7 +3,7 @@ import { DatabaseConfig, TableSchema, ColumnSchema } from '../../../types/databa
 
 export class OracleConnector {
     private connection: oracledb.Connection | null = null;
-    private config: oracledb.ConnectionAttributes;
+    private config: any; // Oracle connection config
 
     constructor(private dbConfig: DatabaseConfig) {
         this.config = {
