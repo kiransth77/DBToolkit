@@ -78,9 +78,9 @@ jobs:
     - name: 📝 Generate configuration examples
       run: |
         echo "📝 Generating configuration examples..."
-        npm start config-template mysql --output docs/examples/mysql-config.yaml
-        npm start config-template postgresql --output docs/examples/postgresql-config.yaml
-        npm start config-template mongodb --output docs/examples/mongodb-config.yaml
+        npx ts-node src/app.ts config-template mysql --output docs/examples/mysql-config.yaml
+        npx ts-node src/app.ts config-template postgresql --output docs/examples/postgresql-config.yaml
+        npx ts-node src/app.ts config-template mongodb --output docs/examples/mongodb-config.yaml
         
         ls -la docs/examples/
         

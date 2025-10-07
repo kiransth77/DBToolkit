@@ -128,9 +128,10 @@ jobs:
     - name: 🔧 Test Configuration Generation
       run: |
         echo "🔧 Testing configuration templates..."
-        npm start config-template mysql --output test-mysql.yaml
-        npm start config-template postgresql --output test-pg.yaml
-        npm start config-template mongodb --output test-mongo.yaml
+        npx ts-node src/app.ts config-template mysql --output test-mysql.yaml
+        npx ts-node src/app.ts config-template postgresql --output test-pg.yaml
+        npx ts-node src/app.ts config-template mongodb --output test-mongo.yaml
+        echo "Generated configuration files:"
         ls -la test-*.yaml
         
     - name: 🧪 Test CLI Interface
