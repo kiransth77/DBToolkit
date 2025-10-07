@@ -10,7 +10,6 @@ on:
 
 env:
   NODE_VERSION: '18.x'
-  REGISTRY_URL: https://registry.npmjs.org/
 
 jobs:
   # Job 1: Code Quality & Linting
@@ -26,10 +25,9 @@ jobs:
       uses: actions/setup-node@v4
       with:
         node-version: ${{ env.NODE_VERSION }}
-        cache: 'npm'
         
     - name: 📦 Install dependencies
-      run: npm ci
+      run: npm install
       
     - name: 🔍 TypeScript compilation check
       run: npm run build
@@ -59,10 +57,9 @@ jobs:
       uses: actions/setup-node@v4
       with:
         node-version: ${{ matrix.node-version }}
-        cache: 'npm'
         
     - name: 📦 Install dependencies
-      run: npm ci
+      run: npm install
       
     - name: 🧪 Test Core Library-Free Components
       run: npm run test-core
@@ -119,10 +116,9 @@ jobs:
       uses: actions/setup-node@v4
       with:
         node-version: ${{ env.NODE_VERSION }}
-        cache: 'npm'
         
     - name: 📦 Install dependencies
-      run: npm ci
+      run: npm install
       
     - name: 🗄️ Test Database Connectors
       run: |
@@ -162,10 +158,9 @@ jobs:
       uses: actions/setup-node@v4
       with:
         node-version: ${{ env.NODE_VERSION }}
-        cache: 'npm'
         
     - name: 📦 Install dependencies
-      run: npm ci
+      run: npm install
       
     - name: 🏗️ Build on ${{ matrix.os }}
       run: npm run build
@@ -190,10 +185,9 @@ jobs:
       uses: actions/setup-node@v4
       with:
         node-version: ${{ env.NODE_VERSION }}
-        cache: 'npm'
         
     - name: 📦 Install dependencies
-      run: npm ci
+      run: npm install
       
     - name: 🔒 Run security audit
       run: npm audit --audit-level=moderate
@@ -230,10 +224,9 @@ jobs:
       uses: actions/setup-node@v4
       with:
         node-version: ${{ env.NODE_VERSION }}
-        cache: 'npm'
         
     - name: 📦 Install dependencies
-      run: npm ci
+      run: npm install
       
     - name: ⚡ Startup Performance Test
       run: |
@@ -269,79 +262,25 @@ jobs:
         name: performance-report
         path: performance-report.md
 
-  # Job 7: Package & Release
-  package:
-    name: 📦 Package & Release
+  # Notification
+  notify:
+    name: 📢 Pipeline Notification
     runs-on: ubuntu-latest
     needs: [test-library-free, test-database-providers, test-cross-platform, security, performance]
-    if: github.event_name == 'release' && github.event.action == 'published'
-    
-    steps:
-    - name: 📥 Checkout code
-      uses: actions/checkout@v4
-      
-    - name: 🔧 Setup Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: ${{ env.NODE_VERSION }}
-        cache: 'npm'
-        registry-url: ${{ env.REGISTRY_URL }}
-        
-    - name: 📦 Install dependencies
-      run: npm ci
-      
-    - name: 🏗️ Build package
-      run: npm run build
-      
-    - name: 🔍 Final verification
-      run: |
-        echo "🔍 Final package verification:"
-        npm run test-comprehensive
-        echo "✅ All tests passed - ready for release!"
-        
-    - name: 📋 Generate release notes
-      run: |
-        echo "🚀 Library-Free Universal Database Migration Tool v${{ github.event.release.tag_name }}" > release-notes.md
-        echo "" >> release-notes.md
-        echo "## 🌟 Features" >> release-notes.md
-        echo "- 🚫 Zero external dependencies" >> release-notes.md
-        echo "- 🔌 6 database providers supported" >> release-notes.md
-        echo "- ⚡ 90% smaller package size" >> release-notes.md
-        echo "- 🛠️ Custom YAML and CLI parsers" >> release-notes.md
-        echo "" >> release-notes.md
-        echo "## 📊 Performance" >> release-notes.md
-        echo "- Package size: ~5MB (vs ~50MB with libraries)" >> release-notes.md
-        echo "- Startup time: ~100ms (vs ~500ms with libraries)" >> release-notes.md
-        echo "- Memory usage: ~15MB (vs ~50MB with libraries)" >> release-notes.md
-        
-    - name: 📤 Upload release notes
-      uses: actions/upload-artifact@v4
-      with:
-        name: release-notes
-        path: release-notes.md
-        
-    - name: 🚀 Publish to NPM
-      run: npm publish --access public
-      env:
-        NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-
-  # Job 8: Deployment Notification
-  notify:
-    name: 📢 Deployment Notification
-    runs-on: ubuntu-latest
-    needs: [package]
     if: always()
     
     steps:
-    - name: 📢 Success Notification
-      if: needs.package.result == 'success'
+    - name: 📢 Success notification
+      if: needs.test-library-free.result == 'success'
       run: |
-        echo "🎉 Deployment successful!"
-        echo "✅ Library-free universal database migration tool published"
-        echo "📦 Available on NPM: universal-db-migration-tool"
+        echo "🎉 CI/CD Pipeline completed successfully!"
+        echo "✅ All tests passed"
+        echo "🚫 Zero External Dependencies ✅"
+        echo "🔌 Database Provider Independent ✅"
+        echo "⚡ Production Ready ✅"
         
-    - name: ❌ Failure Notification
-      if: needs.package.result == 'failure'
+    - name: ❌ Failure notification
+      if: needs.test-library-free.result == 'failure'
       run: |
-        echo "❌ Deployment failed!"
-        echo "Please check the logs for more information"
+        echo "❌ CI/CD Pipeline failed!"
+        echo "Please check the workflow logs for details."

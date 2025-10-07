@@ -151,8 +151,7 @@ verification-report.md
 *.backup
 *.bak
 
-# Package manager files
-package-lock.json
+# Package manager files (exclude others but keep package-lock.json for reproducible builds)
 yarn.lock
 pnpm-lock.yaml
 
