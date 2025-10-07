@@ -1,0 +1,28 @@
+version: "2.0"
+migration:
+  source:
+    provider: mysql
+    host: localhost
+    port: 3306
+    username: your_username
+    password: your_password
+    database: source_database
+    options:
+      ssl: false
+  target:
+    provider: postgresql
+    host: localhost
+    port: 5432
+    username: your_username
+    password: your_password
+    database: target_database
+    options:
+      ssl: false
+  options:
+    includeData: true
+    batchSize: 1000
+    generateScripts: false
+    tables:
+      - users
+      - orders
+      - products

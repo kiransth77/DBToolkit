@@ -1,0 +1,104 @@
+# Universal Database Migration Tool - Configuration Examples
+
+## SQL Server to MongoDB Migration
+version: '2.0'
+migration:
+  source:
+    provider: mssql
+    host: localhost
+    port: 1433
+    username: sa
+    password: YourPassword123
+    database: NorthwindSQL
+    options:
+      encrypt: true
+      trustServerCertificate: true
+  
+  target:
+    provider: mongodb
+    host: localhost
+    port: 27017
+    username: admin
+    password: password
+    database: NorthwindMongo
+    options:
+      authSource: admin
+      ssl: false
+  
+  options:
+    includeData: true
+    batchSize: 500
+    generateScripts: false
+    tables:
+      - Customers
+      - Orders
+      - Products
+
+---
+
+## Oracle to PostgreSQL Migration
+version: '2.0'
+migration:
+  source:
+    provider: oracle
+    host: localhost
+    port: 1521
+    username: hr
+    password: password
+    database: xe
+    options:
+      serviceName: xe
+  
+  target:
+    provider: postgresql
+    host: localhost
+    port: 5432
+    username: postgres
+    password: password
+    database: hr_migrated
+    options:
+      ssl: false
+  
+  options:
+    includeData: true
+    batchSize: 2000
+    generateScripts: true
+    scriptOutputPath: ./oracle-to-postgres-scripts
+    tables:
+      - employees
+      - departments
+      - jobs
+
+---
+
+## SQLite to MySQL Migration
+version: '2.0'
+migration:
+  source:
+    provider: sqlite
+    host: ''
+    port: 0
+    username: ''
+    password: ''
+    database: sample.db
+    options:
+      filePath: ./data/sample.db
+  
+  target:
+    provider: mysql
+    host: localhost
+    port: 3306
+    username: root
+    password: password
+    database: sample_mysql
+    options:
+      ssl: false
+  
+  options:
+    includeData: true
+    batchSize: 1000
+    generateScripts: false
+    tables:
+      - users
+      - posts
+      - comments

@@ -1,0 +1,44 @@
+version: '1.0'
+migrations:
+  - name: SampleMigration
+    description: This migration adds a new table and its relationships.
+    up:
+      - createTable:
+          name: users
+          columns:
+            - name: id
+              type: integer
+              primary: true
+              autoIncrement: true
+            - name: username
+              type: string
+              unique: true
+            - name: email
+              type: string
+              unique: true
+            - name: created_at
+              type: datetime
+              default: now()
+    down:
+      - dropTable:
+          name: users
+    relationships:
+      - type: oneToMany
+        from: users
+        to: posts
+        onDelete: cascade
+  - name: AnotherMigration
+    description: This migration modifies an existing table.
+    up:
+      - alterTable:
+          name: users
+          changes:
+            - addColumn:
+                name: last_login
+                type: datetime
+    down:
+      - alterTable:
+          name: users
+          changes:
+            - dropColumn:
+                name: last_login
