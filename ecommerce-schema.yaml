@@ -1,0 +1,498 @@
+version: 2.0
+type: sql_schema
+generated: "2025-10-07T05:41:21.792Z"
+tables:
+  - 
+    name: order_items
+    columns:
+      - 
+        name: id
+        type: INTEGER
+        nullable: true
+        primaryKey: true
+        autoIncrement: null
+        default: null
+        length: null
+        precision: null
+        scale: null
+      - 
+        name: order_id
+        type: INTEGER
+        nullable: false
+        primaryKey: false
+        autoIncrement: null
+        default: null
+        length: null
+        precision: null
+        scale: null
+      - 
+        name: product_id
+        type: INTEGER
+        nullable: false
+        primaryKey: false
+        autoIncrement: null
+        default: null
+        length: null
+        precision: null
+        scale: null
+      - 
+        name: quantity
+        type: INTEGER
+        nullable: false
+        primaryKey: false
+        autoIncrement: null
+        default: null
+        length: null
+        precision: null
+        scale: null
+      - 
+        name: unit_price
+        type: DECIMAL(10,2)
+        nullable: false
+        primaryKey: false
+        autoIncrement: null
+        default: null
+        length: null
+        precision: null
+        scale: null
+      - 
+        name: total_price
+        type: DECIMAL(10,2)
+        nullable: false
+        primaryKey: false
+        autoIncrement: null
+        default: null
+        length: null
+        precision: null
+        scale: null
+      - 
+        name: created_at
+        type: DATETIME
+        nullable: true
+        primaryKey: false
+        autoIncrement: null
+        default: CURRENT_TIMESTAMP
+        length: null
+        precision: null
+        scale: null
+    indexes:
+    constraints:
+    relationships:
+  - 
+    name: orders
+    columns:
+      - 
+        name: id
+        type: INTEGER
+        nullable: true
+        primaryKey: true
+        autoIncrement: null
+        default: null
+        length: null
+        precision: null
+        scale: null
+      - 
+        name: user_id
+        type: INTEGER
+        nullable: false
+        primaryKey: false
+        autoIncrement: null
+        default: null
+        length: null
+        precision: null
+        scale: null
+      - 
+        name: order_number
+        type: VARCHAR(50)
+        nullable: false
+        primaryKey: false
+        autoIncrement: null
+        default: null
+        length: null
+        precision: null
+        scale: null
+      - 
+        name: status
+        type: VARCHAR(20)
+        nullable: true
+        primaryKey: false
+        autoIncrement: null
+        default: 'pending'
+        length: null
+        precision: null
+        scale: null
+      - 
+        name: total_amount
+        type: DECIMAL(10,2)
+        nullable: false
+        primaryKey: false
+        autoIncrement: null
+        default: null
+        length: null
+        precision: null
+        scale: null
+      - 
+        name: shipping_amount
+        type: DECIMAL(10,2)
+        nullable: true
+        primaryKey: false
+        autoIncrement: null
+        default: 0
+        length: null
+        precision: null
+        scale: null
+      - 
+        name: tax_amount
+        type: DECIMAL(10,2)
+        nullable: true
+        primaryKey: false
+        autoIncrement: null
+        default: 0
+        length: null
+        precision: null
+        scale: null
+      - 
+        name: discount_amount
+        type: DECIMAL(10,2)
+        nullable: true
+        primaryKey: false
+        autoIncrement: null
+        default: 0
+        length: null
+        precision: null
+        scale: null
+      - 
+        name: payment_method
+        type: VARCHAR(50)
+        nullable: true
+        primaryKey: false
+        autoIncrement: null
+        default: null
+        length: null
+        precision: null
+        scale: null
+      - 
+        name: payment_status
+        type: VARCHAR(20)
+        nullable: true
+        primaryKey: false
+        autoIncrement: null
+        default: 'pending'
+        length: null
+        precision: null
+        scale: null
+      - 
+        name: shipping_address
+        type: TEXT
+        nullable: true
+        primaryKey: false
+        autoIncrement: null
+        default: null
+        length: null
+        precision: null
+        scale: null
+      - 
+        name: billing_address
+        type: TEXT
+        nullable: true
+        primaryKey: false
+        autoIncrement: null
+        default: null
+        length: null
+        precision: null
+        scale: null
+      - 
+        name: created_at
+        type: DATETIME
+        nullable: true
+        primaryKey: false
+        autoIncrement: null
+        default: CURRENT_TIMESTAMP
+        length: null
+        precision: null
+        scale: null
+      - 
+        name: updated_at
+        type: DATETIME
+        nullable: true
+        primaryKey: false
+        autoIncrement: null
+        default: CURRENT_TIMESTAMP
+        length: null
+        precision: null
+        scale: null
+    indexes:
+    constraints:
+    relationships:
+  - 
+    name: products
+    columns:
+      - 
+        name: id
+        type: INTEGER
+        nullable: true
+        primaryKey: true
+        autoIncrement: null
+        default: null
+        length: null
+        precision: null
+        scale: null
+      - 
+        name: name
+        type: VARCHAR(200)
+        nullable: false
+        primaryKey: false
+        autoIncrement: null
+        default: null
+        length: null
+        precision: null
+        scale: null
+      - 
+        name: description
+        type: TEXT
+        nullable: true
+        primaryKey: false
+        autoIncrement: null
+        default: null
+        length: null
+        precision: null
+        scale: null
+      - 
+        name: price
+        type: DECIMAL(10,2)
+        nullable: false
+        primaryKey: false
+        autoIncrement: null
+        default: null
+        length: null
+        precision: null
+        scale: null
+      - 
+        name: stock_quantity
+        type: INTEGER
+        nullable: true
+        primaryKey: false
+        autoIncrement: null
+        default: 0
+        length: null
+        precision: null
+        scale: null
+      - 
+        name: category
+        type: VARCHAR(100)
+        nullable: true
+        primaryKey: false
+        autoIncrement: null
+        default: null
+        length: null
+        precision: null
+        scale: null
+      - 
+        name: brand
+        type: VARCHAR(100)
+        nullable: true
+        primaryKey: false
+        autoIncrement: null
+        default: null
+        length: null
+        precision: null
+        scale: null
+      - 
+        name: sku
+        type: VARCHAR(100)
+        nullable: true
+        primaryKey: false
+        autoIncrement: null
+        default: null
+        length: null
+        precision: null
+        scale: null
+      - 
+        name: weight
+        type: DECIMAL(8,2)
+        nullable: true
+        primaryKey: false
+        autoIncrement: null
+        default: null
+        length: null
+        precision: null
+        scale: null
+      - 
+        name: dimensions
+        type: VARCHAR(100)
+        nullable: true
+        primaryKey: false
+        autoIncrement: null
+        default: null
+        length: null
+        precision: null
+        scale: null
+      - 
+        name: created_at
+        type: DATETIME
+        nullable: true
+        primaryKey: false
+        autoIncrement: null
+        default: CURRENT_TIMESTAMP
+        length: null
+        precision: null
+        scale: null
+      - 
+        name: updated_at
+        type: DATETIME
+        nullable: true
+        primaryKey: false
+        autoIncrement: null
+        default: CURRENT_TIMESTAMP
+        length: null
+        precision: null
+        scale: null
+      - 
+        name: is_active
+        type: BOOLEAN
+        nullable: true
+        primaryKey: false
+        autoIncrement: null
+        default: 1
+        length: null
+        precision: null
+        scale: null
+    indexes:
+    constraints:
+    relationships:
+  - 
+    name: users
+    columns:
+      - 
+        name: id
+        type: INTEGER
+        nullable: true
+        primaryKey: true
+        autoIncrement: null
+        default: null
+        length: null
+        precision: null
+        scale: null
+      - 
+        name: username
+        type: VARCHAR(50)
+        nullable: false
+        primaryKey: false
+        autoIncrement: null
+        default: null
+        length: null
+        precision: null
+        scale: null
+      - 
+        name: email
+        type: VARCHAR(100)
+        nullable: false
+        primaryKey: false
+        autoIncrement: null
+        default: null
+        length: null
+        precision: null
+        scale: null
+      - 
+        name: password_hash
+        type: VARCHAR(255)
+        nullable: false
+        primaryKey: false
+        autoIncrement: null
+        default: null
+        length: null
+        precision: null
+        scale: null
+      - 
+        name: first_name
+        type: VARCHAR(50)
+        nullable: false
+        primaryKey: false
+        autoIncrement: null
+        default: null
+        length: null
+        precision: null
+        scale: null
+      - 
+        name: last_name
+        type: VARCHAR(50)
+        nullable: false
+        primaryKey: false
+        autoIncrement: null
+        default: null
+        length: null
+        precision: null
+        scale: null
+      - 
+        name: phone
+        type: VARCHAR(20)
+        nullable: true
+        primaryKey: false
+        autoIncrement: null
+        default: null
+        length: null
+        precision: null
+        scale: null
+      - 
+        name: address
+        type: TEXT
+        nullable: true
+        primaryKey: false
+        autoIncrement: null
+        default: null
+        length: null
+        precision: null
+        scale: null
+      - 
+        name: city
+        type: VARCHAR(50)
+        nullable: true
+        primaryKey: false
+        autoIncrement: null
+        default: null
+        length: null
+        precision: null
+        scale: null
+      - 
+        name: country
+        type: VARCHAR(50)
+        nullable: true
+        primaryKey: false
+        autoIncrement: null
+        default: null
+        length: null
+        precision: null
+        scale: null
+      - 
+        name: postal_code
+        type: VARCHAR(20)
+        nullable: true
+        primaryKey: false
+        autoIncrement: null
+        default: null
+        length: null
+        precision: null
+        scale: null
+      - 
+        name: created_at
+        type: DATETIME
+        nullable: true
+        primaryKey: false
+        autoIncrement: null
+        default: CURRENT_TIMESTAMP
+        length: null
+        precision: null
+        scale: null
+      - 
+        name: is_active
+        type: BOOLEAN
+        nullable: true
+        primaryKey: false
+        autoIncrement: null
+        default: 1
+        length: null
+        precision: null
+        scale: null
+    indexes:
+    constraints:
+    relationships:

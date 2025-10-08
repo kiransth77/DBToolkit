@@ -26,7 +26,7 @@ export class SimpleCLI {
         const args = argv.slice(2); // Remove 'node' and script name
         
         if (args.length === 0) {
-            return { command: 'help', args: [], options: {} };
+            return { command: 'interactive', args: [], options: {} };
         }
         
         const command = args[0];
@@ -83,6 +83,19 @@ export class SimpleCLI {
             return;
         }
         
+        if (parsed.command === 'interactive') {
+            const { InteractiveCLI } = require('./interactive-cli');
+            const interactive = new InteractiveCLI();
+            try {
+                await interactive.showMainMenu();
+            } catch (error) {
+                console.error('Interactive mode error:', error);
+                interactive.close();
+                process.exit(1);
+            }
+            return;
+        }
+        
         const handler = this.commands.get(parsed.command);
         if (!handler) {
             console.error(`Unknown command: ${parsed.command}`);
@@ -102,9 +115,13 @@ export class SimpleCLI {
      * Show help information
      */
     private showHelp(): void {
-        console.log('Universal Database Migration Tool');
+        console.log('🚀 Universal Database Migration Tool - Library-Free Edition');
+        console.log('===========================================================');
+        console.log('');
+        console.log('🚫 Zero External Dependencies | 🔌 6 Database Providers | ⚡ High Performance');
         console.log('');
         console.log('Usage: npm start <command> [options]');
+        console.log('       OR run without arguments for interactive mode');
         console.log('');
         console.log('Commands:');
         console.log('  providers                          Show supported database providers');
@@ -113,7 +130,19 @@ export class SimpleCLI {
         console.log('  generate                           Generate YAML schema output');
         console.log('  help                               Show this help message');
         console.log('');
-        console.log('Migration Options:');
+        console.log('🔌 Supported Database Providers:');
+        console.log('  mysql, postgresql, sqlite, mssql, oracle, mongodb');
+        console.log('');
+        console.log('📖 Quick Examples:');
+        console.log('  npm start                                    # Interactive mode');
+        console.log('  npm start providers                          # List all providers');
+        console.log('  npm start config-template mysql              # Generate MySQL config');
+        console.log('  npm start migrate --config-file config.yaml # Run migration');
+        console.log('');
+        console.log('📁 Configuration File Migration:');
+        console.log('  --config-file <path>              Configuration file path');
+        console.log('');
+        console.log('🔧 Advanced Migration Options:');
         console.log('  --source-provider <provider>      Source database provider');
         console.log('  --target-provider <provider>      Target database provider');
         console.log('  --source-host <host>              Source database host');
@@ -132,13 +161,15 @@ export class SimpleCLI {
         console.log('  --batch-size <size>               Batch size for data migration');
         console.log('  --generate-scripts                Generate scripts instead of executing');
         console.log('  --script-output-path <path>       Output path for scripts');
-        console.log('  --config-file <path>              Configuration file path');
         console.log('');
-        console.log('Examples:');
-        console.log('  npm start providers');
-        console.log('  npm start config-template mysql --output config.yaml');
-        console.log('  npm start migrate --source-provider mysql --target-provider postgresql --include-data');
-        console.log('  npm start migrate --config-file config.yaml --include-data');
+        console.log('💡 Workflow Example:');
+        console.log('  1. npm start config-template mysql --output my-config.yaml');
+        console.log('  2. Edit my-config.yaml with your database details');
+        console.log('  3. npm start generate --config-file my-config.yaml');
+        console.log('  4. npm start migrate --config-file my-config.yaml');
+        console.log('');
+        console.log('🔗 Repository: https://github.com/kiransth77/DBToolkit');
+        console.log('📊 Status: Production Ready | Library-Free | Multi-Database');
     }
 }
 
